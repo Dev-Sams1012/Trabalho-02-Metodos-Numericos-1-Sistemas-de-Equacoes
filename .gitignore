@@ -2,6 +2,7 @@
 *.d
 
 # Compiled Object files
+output/
 *.slo
 *.lo
 *.o
@@ -39,3 +40,5 @@
 
 # debug information files
 *.dwo
+
+
