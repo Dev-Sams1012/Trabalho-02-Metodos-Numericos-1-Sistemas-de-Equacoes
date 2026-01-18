@@ -19,7 +19,7 @@ private:
         QuadroResposta(string titulo, vf dados, double a) : titulo(titulo), dados(dados), a(a) {}
 
         void imprime() {
-            cout << "\n==============================================\n";
+            cout << "\n\n==============================================\n";
             cout << " " << titulo << "\n";
             cout << "==============================================\n";
 
@@ -33,7 +33,7 @@ private:
 
             for (int i = 0; i < (int)dados.size(); i++) {
                 double A = a * dados[i];
-                string situacao = (fabs(A) > 3.0) ? "ROMPE" : "SEGURA";
+                string situacao = (fabs(A) > 3.0) ? "\033[31mROMPE\033[0m" : "\033[32mSEGURA\033[0m";
 
                 cout << setw(6)  << i + 1
                     << setw(15) << fixed << setprecision(5) << dados[i]
@@ -41,7 +41,7 @@ private:
                     << situacao << endl;
             }
 
-            cout << "==============================================\n";
+            cout << "==============================================\n\n";
         }
 
 };

@@ -22,7 +22,7 @@ class QuadroEntrada {
          n(n), v(v), C(C), a(a) {}
 
         void imprime() {
-            cout << "\n==============================================\n";
+            cout << "==============================================\n";
             cout << "        QUADRO DE PARAMETROS DE ENTRADA\n";
             cout << "==============================================\n";
 
