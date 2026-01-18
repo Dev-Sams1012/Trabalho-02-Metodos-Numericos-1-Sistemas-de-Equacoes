@@ -8,9 +8,9 @@ using namespace std;
 typedef vector<vector<double>> Matriz;
 typedef vector<double> vf;
 
-vf get_dCramer(GaussAbs &G, const vf &v){
+vf get_dCramer(GaussAbs &G, const vf &v, string met){
     int n = G.getOrdem();
-    double detA = G.get_detGauss();
+    double detA = G.get_detGauss(met, 0);
     double EPS = 1e-6;
 
     if(abs(detA) < EPS){
@@ -28,7 +28,7 @@ vf get_dCramer(GaussAbs &G, const vf &v){
 
         GaussAbs *Gi = G.clone(Ai);
         
-        double detAi = Gi->get_detGauss();
+        double detAi = Gi->get_detGauss(met, i+1);
 
         d[i] = detAi / detA;
     }

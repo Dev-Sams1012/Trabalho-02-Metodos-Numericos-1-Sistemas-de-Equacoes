@@ -131,9 +131,10 @@ bool executaPrograma(){
 
     GaussJordan GJ(M);
     try{
-        vf d = get_dCramer(GJ, v);
+        vf d = get_dCramer(GJ, v, "Gauss-Jordan");
         QuadroResposta quadro("QUADRO - METODO DE GAUSS-JORDAN + CRAMER", d, a);
         quadro.imprime();
+        cout<< "===============================================================\n";
     }
     catch(runtime_error &e){
         cout << e.what() << "\n";
@@ -141,7 +142,7 @@ bool executaPrograma(){
 
     Gauss G(M);
     try{
-        vf d2 = get_dCramer(G, v);
+        vf d2 = get_dCramer(G, v, "Gauss");
         QuadroResposta quadro("QUADRO - METODO DE GAUSS + CRAMER", d2, a);
         quadro.imprime();
     }

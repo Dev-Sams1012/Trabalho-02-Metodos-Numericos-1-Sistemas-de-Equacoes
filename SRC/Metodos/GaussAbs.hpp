@@ -1,6 +1,7 @@
 #ifndef GAUSS_ABS_HPP
 #define GAUSS_ABS_HPP
 
+#include "../Resultados/Passo.hpp"
 #include <bits/stdc++.h>
 using namespace std;
 typedef vector<vector<double>> Matriz;
@@ -23,7 +24,7 @@ public:
 
     virtual GaussAbs* clone(const Matriz& M) const = 0;
 
-    double get_detGauss() {
+    double get_detGauss(string met, int i) {
         Matriz A = M;
         double det = 1.0;
         int trocas = 0;
@@ -48,10 +49,15 @@ public:
             passoElimina(A, i);
         }
 
+        
         for (int i = 0; i < n; i++)
-            det *= A[i][i];
-
+        det *= A[i][i];
+        
         if (trocas % 2 == 1) det = -det;
+        
+        
+        Passo p(n, i, A, met, det);
+        p.imprime();
 
         return det;
     }
