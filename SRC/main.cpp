@@ -47,7 +47,7 @@ double lerDouble(const string& msg) {
 
         try {
             x = stod(linha);
-            if (x > 0) return x;
+            if (x >= 0.0) return x;
             throw invalid_argument("Valor invalido");
         } catch (...) {
             cout << "Valor invalido. Digite um numero real.\n";
