@@ -55,7 +55,6 @@ double lerDouble(const string& msg) {
     }
 }
 
-
 void lerDados(int& n, double& a, Matriz& C, vf& v){
     cout << "\033[33m";
     cout << R"(
@@ -115,6 +114,19 @@ void lerDados(int& n, double& a, Matriz& C, vf& v){
     }
 }
 
+void executarMetodo(GaussAbs &metodo, const vf &v, double &a) {
+    try {
+        vf d = get_dCramer(metodo, v);
+        string titulo = "QUADRO - METODO DE " + metodo.getNomeMetodo() + " + CRAMER";
+        
+        QuadroResposta quadro(titulo, d, a);
+        quadro.imprime();
+    }
+    catch(runtime_error &e) {
+        cout << e.what() << "\n";
+    }
+}
+
 bool executaPrograma(){
     limparTerminal();
 
@@ -129,28 +141,16 @@ bool executaPrograma(){
     QuadroEntrada quadroEntrada(n, v, M, a);
     quadroEntrada.imprime();
 
-    GaussJordan GJ(M);
-    try{
-        vf d = get_dCramer(GJ, v, "Gauss-Jordan");
-        QuadroResposta quadro("QUADRO - METODO DE GAUSS-JORDAN + CRAMER", d, a);
-        quadro.imprime();
-        cout<< "===============================================================\n";
-    }
-    catch(runtime_error &e){
-        cout << e.what() << "\n";
-    }
-
     Gauss G(M);
-    try{
-        vf d2 = get_dCramer(G, v, "Gauss");
-        QuadroResposta quadro("QUADRO - METODO DE GAUSS + CRAMER", d2, a);
-        quadro.imprime();
-    }
-    catch(runtime_error &e){
-        cout << e.what() << "\n";
-    }
+    executarMetodo(G, v, a);
+
+    cout<< "\n===============================================================\n\n";
+
+    GaussJordan GJ(M);
+    executarMetodo(GJ, v, a);
 
     string resposta;
+
     while (true) {
         cout << "Deseja executar novamente? (s/n): ";
         getline(cin, resposta);
