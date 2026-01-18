@@ -26,16 +26,9 @@ vf get_dCramer(GaussAbs &G, const vf &v){
             Ai[j][i] = v[j];
         }
 
-        GaussAbs *Gi;
-
-        if(dynamic_cast<GaussJordan*>(&G)){
-            Gi = new GaussJordan(Ai);
-        } else{
-            Gi = new Gauss(Ai);
-        }
-
-        double detAi;
-        detAi = Gi->get_detGauss();
+        GaussAbs *Gi = G.clone(Ai);
+        
+        double detAi = Gi->get_detGauss();
 
         d[i] = detAi / detA;
     }
