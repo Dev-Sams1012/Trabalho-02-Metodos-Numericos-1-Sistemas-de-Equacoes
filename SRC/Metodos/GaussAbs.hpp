@@ -24,7 +24,9 @@ public:
 
     virtual GaussAbs* clone(const Matriz& M) const = 0;
 
-    double get_detGauss(string met, int i) {
+    virtual string getNomeMetodo() const = 0;
+
+    double get_detGauss(int i) {
         Matriz A = M;
         double det = 1.0;
         int trocas = 0;
@@ -51,12 +53,11 @@ public:
 
         
         for (int i = 0; i < n; i++)
-        det *= A[i][i];
+            det *= A[i][i];
         
         if (trocas % 2 == 1) det = -det;
         
-        
-        Passo p(n, i, A, met, det);
+        Passo p(n, i, A, getNomeMetodo(), det);
         p.imprime();
 
         return det;
