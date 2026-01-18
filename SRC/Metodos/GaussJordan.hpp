@@ -13,6 +13,8 @@ class GaussJordan : public GaussAbs
 public:
     GaussJordan(Matriz M) : GaussAbs(M) {}
 
+    string getNomeMetodo() const override { return "Gauss-Jordan"; }
+
     GaussAbs* clone(const Matriz& M) const override { return new GaussJordan(M); }
 
 protected:
@@ -28,7 +30,6 @@ protected:
                 if(fabs(A[j][k]) < 1e-6) A[j][k] = 0;
             }
         }
-
     }
 };
 

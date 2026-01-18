@@ -12,6 +12,8 @@ class Gauss : public GaussAbs
 public:
     Gauss(Matriz M) : GaussAbs(M) {}
 
+    string getNomeMetodo() const override { return "Gauss"; }
+
     GaussAbs* clone(const Matriz& M) const override { return new Gauss(M); }
 
 protected:
@@ -21,6 +23,8 @@ protected:
 
             for(int k=i; k<n; k++){
                 A[j][k] -= fator * A[i][k];
+
+                if(fabs(A[j][k]) < 1e-6) A[j][k] = 0;
             }
         }
     }
