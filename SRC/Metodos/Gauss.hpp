@@ -9,42 +9,49 @@ typedef vector<vector<double>> Matriz;
 
 class Gauss : public GaussAbs
 {
+public:
+    Gauss(Matriz M) : GaussAbs(M) {}
 
-    public:
-        Gauss(Matriz M) : GaussAbs(M) {}
+    double get_detGauss(){
+        double det = 1.0;
+        int trocas = 0;
+        double EPS = 1e-6;
+        Matriz tempM = getMatriz();
 
-        double get_detGauss(){
-            double det = 1.0;
-            int trocas = 0;
-            Matriz tempM = getMatriz();
-            for(int i=0; i<n; i++){
-                if(tempM[i][i] == 0){
-                    for(int k=i+1; k<n; k++){
-                        if(tempM[k][i] != 0){
-                            swap(tempM[i], tempM[k]);
-                            trocas++;
-                            break;
-                        }
-                    }
-                }
-                for(int j=i+1; j<n; j++){
-                    double fator = tempM[j][i] / tempM[i][i];
+        for(int i=0; i<n; i++){
+            int pivot = i;
 
-                    for(int k=i; k<n; k++){
-                        tempM[j][k] -= fator * tempM[i][k];
-                    }
+            for(int k=i+1; k<n; k++){
+                if (abs(tempM[k][i]) > abs(tempM[pivot][i])) {
+                    pivot = k;
                 }
             }
-            for(int i=0; i<n; i++){
-                det *= tempM[i][i];
+
+            if (abs(tempM[pivot][i]) < EPS) return 0.0;
+
+            if (pivot != i) {
+                swap(tempM[i], tempM[pivot]);
+                trocas++;
             }
-            if(trocas % 2 == 1){
-                det = -det;
+            
+            for(int j=i+1; j<n; j++){
+                double fator = tempM[j][i] / tempM[i][i];
+
+                for(int k=i; k<n; k++){
+                    tempM[j][k] -= fator * tempM[i][k];
+                }
             }
-            return det;
         }
 
-};
+        for(int i=0; i<n; i++){
+            det *= tempM[i][i];
+        }
 
+        if(trocas % 2 == 1) det = -det;
+
+        return det;
+    }
+
+};
 
 #endif 
