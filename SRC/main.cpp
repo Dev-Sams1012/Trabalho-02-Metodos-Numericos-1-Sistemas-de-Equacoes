@@ -47,10 +47,27 @@ double lerDouble(const string& msg) {
 
         try {
             x = stod(linha);
-            if (x >= 0.0) return x;
-            throw invalid_argument("Valor invalido");
+            return x;
         } catch (...) {
             cout << "Valor invalido. Digite um numero real.\n";
+        }
+    }
+}
+
+double lerDoublePositivo(const string& msg) {
+    string linha;
+    double x;
+    
+    while (true) {
+        cout << msg;
+        getline(cin, linha);
+
+        try {
+            x = stod(linha);
+            if (x > 0.0) return x;
+            throw invalid_argument("Valor invalido");
+        } catch (...) {
+            cout << "Valor invalido. Digite um numero real positivo.\n";
         }
     }
 }
@@ -96,7 +113,7 @@ void lerDados(int& n, double& a, Matriz& C, vf& v){
     cout << "\n\n";
 
     n = lerInteiroPositivo("Numero de cordas (n): ");
-    a = lerDouble("Parametro a: ");
+    a = lerDoublePositivo("Parametro a: ");
 
     C.assign(n, vector<double>(n));
     v.assign(n, 0.0);
